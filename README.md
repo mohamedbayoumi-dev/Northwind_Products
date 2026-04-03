@@ -148,7 +148,7 @@ All screenshots are located in the `/docs` folder:
 
 Task | File | Description |
 |------|------|-------------|
-| D1 | [GitHub Repository](https://github.com/YOUR_USERNAME/YOUR_REPO) | GitHub project source code |
+| D1 | [GitHub Repository](https://github.com/mohamedbayoumi-dev/Northwind_Products) | GitHub project source code |
 | D2 | `docs/Deliverable D2` | Northwind destination configured in BTP Cockpit with successful Check Connection |
 | D3 | `docs/D3 — BAS preview.png` | Fiori List Report running in BAS preview showing live Northwind product data |
 | B1 | `docs/B1 — Deploy to CF.png` | Application Deployed to Cloud Foundry |
