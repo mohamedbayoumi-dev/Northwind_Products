@@ -1,6 +1,13 @@
 # Northwind Products — SAP Fiori Application
 
-A SAP Fiori Elements List Report application built on SAP Business Technology Platform (BTP), consuming the public Northwind OData V2 service. The app displays a searchable, filterable list of products with a drill-down Object Page for detailed product information.
+An SAP Fiori Elements List Report application built on SAP Business Technology Platform (BTP), consuming the public Northwind OData V2 service. The app displays a searchable, filterable list of products with a drill-down Object Page for detailed product information.
+
+---
+## Live Demo
+
+🔗 [Open Application](https://be444841trial.launchpad.cfapps.us10.hana.ondemand.com/a2295dd7-8a71-42ef-bf4b-a5e3e206700e.cominternnorthwindappnorthwindapp.cominternnorthwindappnorthwindapp-0.0.1)
+
+> Note: The application is hosted on SAP BTP Trial. Performance may vary slightly due to shared resources.
 
 ---
 
@@ -8,21 +15,24 @@ A SAP Fiori Elements List Report application built on SAP Business Technology Pl
 
 ```
 [Northwind OData Service]
-        |
-        v
+        |
+        v
 [BTP Destination: "Northwind"]
-        |
-        v
-[SAP Business Application Studio (BAS)]
-        |
-        v
-[Fiori App (List Report + Object Page)]
-        |
-        v
-[Cloud Foundry Space: dev]
-        |
-        v
+        |
+        v
+[Fiori App (SAPUI5 - List Report + Object Page)]
+        |
+        v
 [HTML5 Application Repository]
+        |
+        v
+[Managed Application Router]
+        |
+        v
+[XSUAA Authentication]
+        |
+        v
+[Cloud Foundry Space: dev]
 ```
 
 - **Destination**: Configured in BTP Cockpit to point to `https://services.odata.org`, enabling BAS to discover and consume the Northwind OData service.
@@ -107,6 +117,8 @@ cf deploy mta_archives/cominternnorthwindappnorthwindapp_0.0.1.mtar
 - UnitPrice
 - UnitsInStock
 
+**Service URL**: https://services.odata.org/V2/Northwind/Northwind.svc/
+
 ---
 
 ## Challenges Faced
@@ -119,9 +131,9 @@ cf deploy mta_archives/cominternnorthwindappnorthwindapp_0.0.1.mtar
 **Problem**: The Object Page was generated but displayed no fields.  
 **Solution**: Manually added OData annotations (`UI.LineItem`, `UI.HeaderInfo`, `UI.FieldGroup`, `UI.Facets`) to `webapp/annotations/annotation.xml` to define the List Report columns and Object Page sections.
 
-### 3. SAP Build Work Zone subscription failing (OIDC trust missing)
-**Problem**: Attempting to subscribe to SAP Build Work Zone failed with error `422 OIDC trust missing` because SAP BTP Trial accounts do not support OIDC trust configuration with SAP Cloud Identity Services.  
-**Solution**: Proceeded without Work Zone. The HTML5 app was successfully deployed to the HTML5 Application Repository and verified via `cf html5-list`.
+### 3. SAP Build Work Zone subscription issue (OIDC trust)
+**Problem**: Initial subscription failed with `OIDC trust missing` error.  
+**Solution**: After retrying and ensuring correct subaccount configuration, the subscription was successfully completed, and the application was integrated into SAP Build Work Zone Launchpad.
 
 ### 4. Postman POST request type error
 **Problem**: POST request to OData service failed with `Cannot convert Edm.Double to Edm.Decimal`.  
@@ -131,14 +143,14 @@ cf deploy mta_archives/cominternnorthwindappnorthwindapp_0.0.1.mtar
 
 ## Bonus Tasks Completed
 
-| # | Task | Status |
-|---|------|--------|
-| B1 | Deploy to Cloud Foundry | ✅ Completed |
-| B2 | Test & Validate via Postman (4 queries) | ✅ Completed |
-| B4 | Fiori Object Page | ✅ Completed |
-| B5 | OData POST Write Operation via Postman | ✅ Completed |
-| B3 | XSUAA Authentication | ✅ Completed |
-| B6 | SAP Build Work Zone | ✅ Completed |
+| #  | Task | Status |
+|----|------|--------|
+| B1 | Deploy to Cloud Foundry | Completed (Application successfully deployed and running) |
+| B2 | Test & Validate via Postman ($top, $filter, $select, $orderby) | Completed (Queries tested on live OData endpoint) |
+| B3 | XSUAA Authentication | Enabled (Application secured with authentication) |
+| B4 | Fiori Object Page | Implemented (Navigation to detailed view enabled) |
+| B5 | OData POST Write Operation via Postman | Tested (POST request executed successfully) |
+| B6 | SAP Build Work Zone | Configured (App integrated into Launchpad site) |
 
 ---
 
@@ -146,7 +158,7 @@ cf deploy mta_archives/cominternnorthwindappnorthwindapp_0.0.1.mtar
 
 All screenshots are located in the `/docs` folder:
 
-Task | File | Description |
+| Task | File | Description |
 |------|------|-------------|
 | D1 | [GitHub Repository](https://github.com/mohamedbayoumi-dev/Northwind_Products) | GitHub project source code |
 | D2 | `docs/Deliverable D2` | Northwind destination configured in BTP Cockpit with successful Check Connection |
@@ -166,10 +178,40 @@ Task | File | Description |
 
 ## Deployed Application
 
-The application was deployed to SAP BTP Cloud Foundry using the MTA build and deploy tools.
+The application was built using SAP Business Application Studio and deployed to SAP BTP Cloud Foundry using the Multi-Target Application (MTA) build and deployment process.
 
+### Deployment Details
 - **CF API Endpoint**: `https://api.cf.us10-001.hana.ondemand.com`
-- **Org**: `be444841trial`
+- **Organization (Org)**: `be444841trial`
 - **Space**: `dev`
-- **HTML5 App Name**: `cominternnorthwindappnorthwindapp`
-- **Deployed Application URL**: `https://be444841trial.launchpad.cfapps.us10.hana.ondemand.com/a2295dd7-8a71-42ef-bf4b-a5e3e206700e.cominternnorthwindappnorthwindapp.cominternnorthwindappnorthwindapp-0.0.1`
+- **HTML5 Application Name**: `cominternnorthwindappnorthwindapp`
+
+### Application Access
+- **SAP Build Work Zone (Launchpad)**  
+  🔗 [Open Fiori Application](https://be444841trial.launchpad.cfapps.us10.hana.ondemand.com/a2295dd7-8a71-42ef-bf4b-a5e3e206700e.cominternnorthwindappnorthwindapp.cominternnorthwindappnorthwindapp-0.0.1)
+
+> Note: The application is secured using XSUAA authentication. A login prompt will appear before accessing the application.
+
+### Status
+✔️ The application is successfully deployed and running in the Cloud Foundry environment.
+
+---
+
+## Technical Stack
+
+- SAP Fiori Elements (List Report + Object Page)
+- SAPUI5
+- OData V2
+- SAP Business Application Studio
+- SAP BTP Cloud Foundry
+- HTML5 Application Repository
+- XSUAA Authentication
+
+---
+
+## Author
+
+Mohamed Bayoumy  
+Full Stack Developer | SAP BTP Enthusiast
+
+---
